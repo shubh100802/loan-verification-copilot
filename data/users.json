@@ -1,0 +1,23 @@
+[
+  {
+    "user_id": "USR-001",
+    "name": "Data Operator",
+    "role": "DATA_OPERATOR",
+    "email": "operator@demo.local",
+    "password": "Operator@123"
+  },
+  {
+    "user_id": "USR-002",
+    "name": "Reviewer",
+    "role": "REVIEWER",
+    "email": "reviewer@demo.local",
+    "password": "Reviewer@123"
+  },
+  {
+    "user_id": "USR-003",
+    "name": "Data Consumer",
+    "role": "DATA_CONSUMER",
+    "email": "consumer@demo.local",
+    "password": "Consumer@123"
+  }
+]

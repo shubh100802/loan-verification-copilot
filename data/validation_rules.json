@@ -1,0 +1,103 @@
+{
+  "freshness_days": 365,
+  "rules": [
+    {
+      "rule_id": "R001",
+      "name": "Required loan ID",
+      "severity": "CRITICAL",
+      "enabled": true,
+      "condition": "loan_id must be present"
+    },
+    {
+      "rule_id": "R002",
+      "name": "Valid dates",
+      "severity": "HIGH",
+      "enabled": true,
+      "condition": "origination_date and maturity_date must be valid dates"
+    },
+    {
+      "rule_id": "R003",
+      "name": "Positive principal",
+      "severity": "CRITICAL",
+      "enabled": true,
+      "condition": "original_principal >= 0"
+    },
+    {
+      "rule_id": "R004",
+      "name": "Non-negative balance",
+      "severity": "CRITICAL",
+      "enabled": true,
+      "condition": "current_balance >= 0"
+    },
+    {
+      "rule_id": "R005",
+      "name": "Maturity after origination",
+      "severity": "HIGH",
+      "enabled": true,
+      "condition": "maturity_date > origination_date"
+    },
+    {
+      "rule_id": "R006",
+      "name": "Balance not above principal",
+      "severity": "HIGH",
+      "enabled": true,
+      "condition": "current_balance <= original_principal"
+    },
+    {
+      "rule_id": "R007",
+      "name": "Interest rate range",
+      "severity": "HIGH",
+      "enabled": true,
+      "condition": "interest_rate between 0 and 50"
+    },
+    {
+      "rule_id": "R008",
+      "name": "Payment status consistency",
+      "severity": "MEDIUM",
+      "enabled": true,
+      "condition": "CURRENT implies days_past_due = 0; DEFAULT implies days_past_due >= 90"
+    },
+    {
+      "rule_id": "R009",
+      "name": "Duplicate loan ID",
+      "severity": "CRITICAL",
+      "enabled": true,
+      "condition": "loan_id must be unique"
+    },
+    {
+      "rule_id": "R010",
+      "name": "Document status required",
+      "severity": "MEDIUM",
+      "enabled": true,
+      "condition": "document_status must be present"
+    },
+    {
+      "rule_id": "R011",
+      "name": "Stale record",
+      "severity": "MEDIUM",
+      "enabled": true,
+      "condition": "last_updated_at must be within configured freshness window"
+    },
+    {
+      "rule_id": "R012",
+      "name": "Valid state code",
+      "severity": "LOW",
+      "enabled": true,
+      "condition": "borrower_state must be a valid US state code"
+    },
+    {
+      "rule_id": "R013",
+      "name": "Closed loan balance",
+      "severity": "HIGH",
+      "enabled": true,
+      "condition": "CLOSED loans should have current_balance = 0"
+    },
+    {
+      "rule_id": "R014",
+      "name": "Duplicate borrower combination",
+      "severity": "MEDIUM",
+      "enabled": true,
+      "condition": "borrower_id + original_principal + origination_date should not repeat"
+    }
+  ]
+}
