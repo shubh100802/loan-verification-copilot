@@ -7,15 +7,19 @@ export const connectDatabase = async (): Promise<void> => {
     return;
   }
 
-  const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/intain-loan-verification';
+  const uri = process.env.MONGODB_URI || 'mongodb+srv://royalsnextgenportal_db_user:UllsXi47bHOIgaKc@cluster0.gt6vt2q.mongodb.net/intain-loan-verification?retryWrites=true&w=majority&appName=Cluster0';
 
   try {
-    console.log(`[Database] Connecting to MongoDB at ${uri}...`);
-    await mongoose.connect(uri);
+    console.log(`[Database] Connecting to MongoDB...`);
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 8000,
+      connectTimeoutMS: 10000
+    });
     isConnected = true;
     console.log('[Database] MongoDB connection established successfully.');
   } catch (error) {
     console.error('[Database] MongoDB connection error:', error);
+    throw error;
   }
 };
 
