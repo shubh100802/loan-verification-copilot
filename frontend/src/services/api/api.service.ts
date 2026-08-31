@@ -1,7 +1,17 @@
 import { Loan, Exception, AIRecommendation, ImportJob, AuditLog, DashboardSummary } from '../mock/types';
 
-const API_ORIGIN = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-const BASE_URL = API_ORIGIN.endsWith('/api/v1') ? API_ORIGIN : `${API_ORIGIN.replace(/\/$/, '')}/api/v1`;
+const getBaseUrl = (): string => {
+  if (import.meta.env.VITE_API_URL) {
+    const url = import.meta.env.VITE_API_URL.replace(/\/$/, '');
+    return url.endsWith('/api/v1') ? url : `${url}/api/v1`;
+  }
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return '/api/v1';
+  }
+  return 'http://localhost:3001/api/v1';
+};
+
+const BASE_URL = getBaseUrl();
 
 // Helper to extract active logged-in user credentials
 function getActorQuery(): string {
