@@ -1,5 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import { connectDatabase } from './config/database';
 import healthRouter from './routes/health';
 import apiRouter from './routes/api';
 
@@ -9,6 +10,16 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Ensure database connection is ready before processing requests (Serverless Safe)
+app.use(async (_req: Request, _res: Response, next: NextFunction) => {
+  try {
+    await connectDatabase();
+  } catch (err: any) {
+    console.error('[DB Middleware] Connection error:', err.message);
+  }
+  next();
+});
 
 // Routes
 app.use('/api/health', healthRouter);
