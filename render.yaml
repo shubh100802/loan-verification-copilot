@@ -1,0 +1,42 @@
+services:
+  # Backend Web Service API
+  - type: web
+    name: loan-verification-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: MONGODB_URI
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+
+  # Frontend Static Site UI
+  - type: web
+    name: loan-verification-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+      - type: rewrite
+        source: /assets/*
+        destination: /assets/*
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: loan-verification-backend
+          property: host
