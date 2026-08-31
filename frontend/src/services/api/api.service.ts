@@ -1,6 +1,6 @@
 import { Loan, Exception, AIRecommendation, ImportJob, AuditLog, DashboardSummary } from '../mock/types';
 
-const BASE_URL = 'http://localhost:3001/api/v1';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api/v1';
 
 // Helper to extract active logged-in user credentials
 function getActorQuery(): string {
